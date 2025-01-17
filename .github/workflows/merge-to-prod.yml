@@ -1,0 +1,32 @@
+name: Merge to Production
+
+on:
+  push:
+    branches:
+      - main # Trigger when code is pushed to the `main` branch
+
+jobs:
+  check-and-merge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+      - name: Run tests (optional, you can remove this if not needed)
+        run: |
+          npm install
+          npm test  # Replace with your testing commands if needed
+
+      - name: Merge main to prod
+        run: |
+          git checkout prod
+          git merge main --no-ff -m "Auto-merge main into prod"
+          git push origin prod  # Pushes the changes to the prod branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This will automatically be available for use in GitHub Actions
