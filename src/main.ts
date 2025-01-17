@@ -9,7 +9,11 @@ async function bootstrap() {
     logger: ['error', 'warn', 'log'],
   });
 
-  app.use(helmet());
+  app.use(
+    helmet({
+      hidePoweredBy: true,
+    }),
+  );
 
   app.enableCors({
     origin: ['http://localhost:3000'],
