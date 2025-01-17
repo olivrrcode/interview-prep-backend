@@ -5,18 +5,17 @@ import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }), // Global config
+    ConfigModule.forRoot({ isGlobal: true }), // Load global configuration
     ThrottlerModule.forRoot([
       {
-        ttl: 60000,
-        limit: 50,
+        ttl: 60000, // 1 minute
+        limit: 50, // Limit of 50 requests per minute
       },
     ]),
   ],
-  controllers: [], // Add controllers here
+  controllers: [], // No controllers globally, but modules will have their own controllers
   providers: [
-    // Add services here
-    { provide: APP_GUARD, useClass: ThrottlerGuard },
+    { provide: APP_GUARD, useClass: ThrottlerGuard }, // Apply throttling globally
   ],
 })
 export class AppModule {}

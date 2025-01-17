@@ -18,7 +18,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "start:full": "docker-compose up -d && npx prisma migrate dev --name init && npx prisma generate"
+    "start:full": "docker-compose up -d && npx prisma migrate dev --name init && npx prisma generate && nest start --watch"
   },
   "dependencies": {
     "@nestjs/axios": "^3.1.3",
