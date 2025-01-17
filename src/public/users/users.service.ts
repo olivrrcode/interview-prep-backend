@@ -12,10 +12,12 @@ import * as bcrypt from 'bcrypt';
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  async getUser(userId: number) {
+  async getUser(userId: string | number) {
     if (!userId) {
       throw new NotFoundException('User not found');
     }
+
+    userId = userId.toString();
 
     const user = await this.prisma.user.findUnique({
       where: {
