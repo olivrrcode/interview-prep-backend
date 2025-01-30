@@ -1,0 +1,15 @@
+eslint.config.mjs:
+import { defineConfig } from 'eslint-define-config';
+
+export default defineConfig({
+    ignores: ['node_modules', 'dist'],
+    plugins: ['@typescript-eslint'],
+    extends: [
+        'eslint:recommended',
+        'plugin:@typescript-eslint/recommended',
+    ],
+    parser: '@typescript-eslint/parser',
+    rules: {
+        // Add your custom rules here
+    },
+});

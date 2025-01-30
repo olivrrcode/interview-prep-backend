@@ -1,10 +1,11 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as passport from 'passport';
 import helmet from 'helmet';
+import * as passport from 'passport';
 
-async function bootstrap() {
+import { AppModule } from './app.module';
+
+async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule, {
     logger: ['error', 'warn', 'log'],
   });
