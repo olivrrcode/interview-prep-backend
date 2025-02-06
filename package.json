@@ -6,10 +6,11 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "prebuild": "sh scripts/build-runners.sh",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\"",
     "start": "yarn run start:full",
-    "start:dev": "nest start --watch",
+    "start:dev": "npm run prebuild && nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -18,7 +19,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "start:full": "docker-compose up -d && npx prisma migrate dev --name init && npx prisma generate && nest start --watch"
+    "start:full": "npm run build:runners && docker-compose up -d && npx prisma migrate dev --name init && npx prisma generate && nest start --watch",
+    "build:runners": "sh scripts/build-runners.sh"
   },
   "dependencies": {
     "@nestjs/axios": "^4.0.0",
